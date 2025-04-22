@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    
-
     public function index()
     {
-        $tasks = Task::all();
-        return view('index', compact('tasks'));
+        $tasks = Task::all();  // Get all tasks from the database
+        return view('index', compact('tasks'));  // Pass the tasks to the view
     }
+
+    
 
     public function create()
     {
@@ -27,35 +27,37 @@ class TaskController extends Controller
             'description' => 'required|string',
         ]);
 
-        task::create([
-            'title' => $request->title,
-            'description' => $request->description,
-        ]);
-        return redirect()->route('index')->with('success', 'Task created successfully.');
+        Task::create($request->all());
+
+        return redirect()->route('index');
     }
+
     public function edit(Task $task)
     {
-        return view('edit', compact('tasks'));
+        return view('edit', compact('task'));
     }
+    
     public function update(Request $request, Task $task)
     {
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'is_completed' => 'nullable|boolean', 
+            'is_completed' => 'nullable|boolean',
         ]);
-        $task->is_completed = $request->has('is_completed') ? true : false;
+    
         $task->title = $request->title;
         $task->description = $request->description;
+        $task->is_completed = $request->has('is_completed');
+    
         $task->save();
-
-        return redirect()->route('index')->with('Done', 'Updated successfully.');
+    
+        return redirect()->route('tasks.index');
     }
-
+    
+    
     public function destroy(Task $task)
     {
         $task->delete();
-        return redirect()->route('index')->with('Done', 'deleted successfully.');
-
+        return redirect()->route('tasks.index');
     }
 }

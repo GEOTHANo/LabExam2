@@ -9,9 +9,9 @@
 </head>
 <body>
     <div class="container d-flex justify-content-center align-items-center vh-100">
-        <div class="card shadow-lg border-0 w-200 h-200" style="max-width: 400px;">   
+        <div class="card shadow-lg border-0 w-200 h-200" style="max-width: 800px;">   
             <div class="card-header text-center">
-                <h1>TASK MANAGMENT</h1>
+                <h1>EDIT TASK MANAGMENT</h1>
             </div>
             <div class="card-body text-center">
 
